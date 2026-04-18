@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyPace — Academic Productivity for Students</title>
+  <meta name="description" content="MyPace helps students organize coursework, track deadlines, and build better study habits — all in one intelligent platform.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Page-specific styles not covered by the design system */
+    .nav-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--color-white);
+      border-bottom: 1px solid var(--color-gray-100);
+    }
+
+    .hero {
+      padding: var(--space-20) var(--space-8) var(--space-16);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero__heading {
+      font-size: var(--text-5xl);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+      max-width: 700px;
+      margin-top: var(--space-6);
+      color: var(--color-black);
+    }
+
+    .hero__subheading {
+      font-size: var(--text-lg);
+      color: var(--color-gray-500);
+      max-width: 560px;
+      margin-top: var(--space-5);
+      line-height: 1.6;
+    }
+
+    .hero__ctas {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      margin-top: var(--space-8);
+    }
+
+    .hero__visual {
+      margin-top: var(--space-12);
+      width: 100%;
+      max-width: 780px;
+    }
+
+    .dashboard-preview {
+      max-width: 780px;
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.12), 0 8px 20px rgba(74,144,226,0.08);
+      border: 1px solid var(--color-gray-200);
+      background: var(--color-white);
+    }
+
+    .dashboard-preview__topbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      background: var(--color-gray-50);
+      border-bottom: 1px solid var(--color-gray-200);
+    }
+
+    .dashboard-preview__dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .dashboard-preview__url {
+      flex: 1;
+      height: 28px;
+      margin-left: 8px;
+      border-radius: 6px;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-200);
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      font-size: 11px;
+      color: var(--color-gray-400);
+      font-family: var(--font-sans);
+    }
+
+    .dashboard-preview__body {
+      display: flex;
+      min-height: 340px;
+    }
+
+    .dashboard-preview__sidebar {
+      width: 180px;
+      background: var(--color-gray-50);
+      border-right: 1px solid var(--color-gray-200);
+      padding: 16px 12px;
+      flex-shrink: 0;
+    }
+
+    .dp-sidebar__logo {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 15px;
+      color: var(--color-primary);
+      margin-bottom: 20px;
+    }
+
+    .dp-sidebar__item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      color: var(--color-gray-500);
+      font-family: var(--font-sans);
+      margin-bottom: 2px;
+    }
+
+    .dp-sidebar__item--active {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    .dp-sidebar__item svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    .dashboard-preview__main {
+      flex: 1;
+      padding: 20px 24px;
+    }
+
+    .dp-greeting {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .dp-date {
+      font-size: 11px;
+      color: var(--color-gray-400);
+      margin-bottom: 16px;
+    }
+
+    .dp-stats {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .dp-stat {
+      flex: 1;
+      border-radius: 10px;
+      padding: 12px;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-200);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dp-stat::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+    }
+
+    .dp-stat--red::before { background: var(--color-warning); }
+    .dp-stat--purple::before { background: var(--color-secondary); }
+    .dp-stat--blue::before { background: var(--color-primary); }
+    .dp-stat--green::before { background: var(--color-accent); }
+
+    .dp-stat__value {
+      font-family: var(--font-heading);
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .dp-stat__label {
+      font-size: 10px;
+      color: var(--color-gray-400);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .dp-table-head {
+      display: flex;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--color-gray-200);
+      margin-bottom: 8px;
+    }
+
+    .dp-table-head span {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-gray-400);
+      font-family: var(--font-heading);
+    }
+
+    .dp-table-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 6px 0;
+    }
+
+    .dp-table-row__dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .dp-table-row__name {
+      font-size: 12px;
+      color: var(--color-gray-700);
+      flex: 1;
+    }
+
+    .dp-table-row__badge {
+      font-size: 9px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+
+    .dp-table-row__due {
+      font-size: 10px;
+      width: 70px;
+      text-align: right;
+    }
+
+    @media (max-width: 640px) {
+      .dashboard-preview__sidebar { display: none; }
+      .dp-stats { flex-wrap: wrap; }
+      .dp-stat { min-width: calc(50% - 6px); }
+    }
+
+    /* Features section */
+    .features {
+      padding: var(--space-16) var(--space-8) var(--space-24);
+    }
+
+    .features__header {
+      text-align: center;
+      margin-bottom: var(--space-12);
+    }
+
+    .features__heading {
+      font-size: var(--text-3xl);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .features__sub {
+      font-size: var(--text-base);
+      color: var(--color-gray-500);
+      margin-top: var(--space-3);
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .features__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-6);
+      max-width: var(--content-width);
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      padding: var(--space-6);
+      border-top: 3px solid var(--color-primary);
+    }
+
+    .feature-card:nth-child(2) { border-top-color: var(--color-accent); }
+    .feature-card:nth-child(3) { border-top-color: var(--color-secondary); }
+    .feature-card:nth-child(4) { border-top-color: var(--color-warning); }
+
+    .feature-card__scene {
+      width: 100%;
+      height: 120px;
+      border-radius: var(--radius-lg);
+      background: var(--color-gray-50);
+      margin-bottom: var(--space-5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .feature-card__scene svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .feature-card__icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-lg);
+      background: var(--color-primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-5);
+    }
+
+    .feature-card__icon svg {
+      width: 22px;
+      height: 22px;
+      color: var(--color-primary);
+    }
+
+    .feature-card:nth-child(2) .feature-card__icon { background: rgba(111, 207, 151, 0.15); }
+    .feature-card:nth-child(2) .feature-card__icon svg { color: var(--color-accent-hover); }
+    .feature-card:nth-child(3) .feature-card__icon { background: rgba(58, 12, 163, 0.1); }
+    .feature-card:nth-child(3) .feature-card__icon svg { color: var(--color-secondary); }
+    .feature-card:nth-child(4) .feature-card__icon { background: var(--color-warning-light); }
+    .feature-card:nth-child(4) .feature-card__icon svg { color: var(--color-warning); }
+
+    .feature-card__title {
+      font-size: var(--text-base);
+      font-weight: 700;
+      margin-bottom: var(--space-2);
+    }
+
+    .feature-card__desc {
+      font-size: var(--text-sm);
+      color: var(--color-gray-500);
+      line-height: 1.6;
+    }
+
+    /* Social proof strip */
+    .social-proof {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-4);
+      margin-top: var(--space-10);
+    }
+
+    .social-proof__text {
+      font-size: var(--text-sm);
+      color: var(--color-gray-500);
+    }
+
+    .social-proof__text strong {
+      color: var(--color-black);
+      font-weight: 700;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: var(--color-primary);
+      padding: var(--space-16) var(--space-8);
+      text-align: center;
+      color: var(--color-white);
+    }
+
+    .cta-section__heading {
+      font-size: var(--text-3xl);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-4);
+    }
+
+    .cta-section__sub {
+      font-size: var(--text-lg);
+      opacity: 0.9;
+      max-width: 480px;
+      margin: 0 auto var(--space-8);
+      line-height: 1.6;
+    }
+
+    .btn--white-outline {
+      background: transparent;
+      color: var(--color-white);
+      border: 1.5px solid var(--color-white);
+      border-radius: var(--radius-full);
+    }
+
+    .btn--white-outline:hover {
+      background: var(--color-white);
+      color: var(--color-primary);
+    }
+
+    /* Footer */
+    .site-footer {
+      border-top: 1px solid var(--color-gray-100);
+      padding: var(--space-8);
+      text-align: center;
+      font-size: var(--text-sm);
+      color: var(--color-gray-400);
+      background: var(--color-primary-light);
+    }
+
+    @media (max-width: 1024px) {
+      .features__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero__heading {
+        font-size: var(--text-3xl);
+      }
+      .hero__subheading {
+        font-size: var(--text-base);
+      }
+      .hero__ctas {
+        flex-direction: column;
+        width: 100%;
+        max-width: 320px;
+      }
+      .hero__ctas .btn {
+        width: 100%;
+      }
+      .features__grid {
+        grid-template-columns: 1fr;
+      }
+      .skeleton--hero {
+        height: 240px;
+      }
+      .social-proof {
+        flex-direction: column;
+        gap: var(--space-3);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <div class="nav-wrapper">
+    <nav class="nav">
+      <a href="index.html" class="nav__logo">MyPace</a>
+      <div class="nav__links">
+        <a href="#features" class="nav__link">Features</a>
+        <a href="#pricing" class="nav__link">Pricing</a>
+        <a href="#about" class="nav__link">About</a>
+        <a href="#blog" class="nav__link">Blog</a>
+      </div>
+      <div class="nav__actions">
+        <a href="signup.html" class="nav__link">Log In</a>
+        <a href="signup.html" class="btn btn--primary">Get Started Free</a>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <span class="badge badge--outline" style="border-color: var(--color-primary); color: var(--color-primary);">Institutional Release 2.0</span>
+
+    <h1 class="hero__heading">Take control of your academic life — at your own pace.</h1>
+
+    <p class="hero__subheading" style="color: #5a6f8a;">MyPace helps students organize coursework, track deadlines, and build better study habits — all in one intelligent platform.</p>
+
+    <div class="hero__ctas">
+      <a href="signup.html" class="btn btn--primary btn--large">Get Started</a>
+      <a href="#features" class="btn btn--secondary btn--large" style="background-color: #d6e6f9; color: var(--color-primary);">
+
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="6,3 13,8 6,13" fill="currentColor" stroke="none"/>
+        </svg>
+        See how it works
+      </a>
+    </div>
+
+    <!-- Social proof -->
+    <div class="social-proof">
+      <div class="avatar-stack">
+        <div class="avatar-stack__img">JL</div>
+        <div class="avatar-stack__img">KM</div>
+        <div class="avatar-stack__img">AP</div>
+        <div class="avatar-stack__img">RS</div>
+        <div class="avatar-stack__count">+2k</div>
+      </div>
+      <p class="social-proof__text">Trusted by <strong style="color: var(--color-primary);">2,000+ students</strong> at 50 universities</p>
+    </div>
+
+    <!-- Hero Visual / Dashboard Preview -->
+    <div class="hero__visual">
+      <div class="dashboard-preview">
+        <!-- Browser top bar -->
+        <div class="dashboard-preview__topbar">
+          <div class="dashboard-preview__dot" style="background:#FF5F57;"></div>
+          <div class="dashboard-preview__dot" style="background:#FFBD2E;"></div>
+          <div class="dashboard-preview__dot" style="background:#28CA41;"></div>
+          <div class="dashboard-preview__url">mypace.app/dashboard</div>
+        </div>
+        <!-- Dashboard body -->
+        <div class="dashboard-preview__body">
+          <!-- Sidebar -->
+          <div class="dashboard-preview__sidebar">
+            <div class="dp-sidebar__logo">MyPace</div>
+            <div class="dp-sidebar__item dp-sidebar__item--active">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+              Dashboard
+            </div>
+            <div class="dp-sidebar__item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+              Assignments
+            </div>
+            <div class="dp-sidebar__item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
+              Calendar
+            </div>
+            <div class="dp-sidebar__item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              Learning Center
+            </div>
+            <div class="dp-sidebar__item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              Progress
+            </div>
+          </div>
+          <!-- Main content -->
+          <div class="dashboard-preview__main">
+            <div class="dp-greeting">Good afternoon, Alex</div>
+            <div class="dp-date">Monday, April 14, 2026</div>
+            <!-- Stat cards -->
+            <div class="dp-stats">
+              <div class="dp-stat dp-stat--red">
+                <div class="dp-stat__value" style="color:var(--color-warning);">3</div>
+                <div class="dp-stat__label">Due This Week</div>
+              </div>
+              <div class="dp-stat dp-stat--purple">
+                <div class="dp-stat__value" style="color:var(--color-secondary);">1</div>
+                <div class="dp-stat__label">Upcoming Exams</div>
+              </div>
+              <div class="dp-stat dp-stat--blue">
+                <div class="dp-stat__value" style="color:var(--color-primary);">68%</div>
+                <div class="dp-stat__label">Weekly Progress</div>
+              </div>
+              <div class="dp-stat dp-stat--green">
+                <div class="dp-stat__value" style="color:var(--color-accent);">4</div>
+                <div class="dp-stat__label">Active Courses</div>
+              </div>
+            </div>
+            <!-- Mini task table -->
+            <div class="dp-table-head">
+              <span style="flex:1;">Task</span>
+              <span style="width:60px;">Course</span>
+              <span style="width:70px;text-align:right;">Due</span>
+            </div>
+            <div class="dp-table-row">
+              <div class="dp-table-row__dot" style="background:var(--color-warning);"></div>
+              <div class="dp-table-row__name">Research Paper Draft</div>
+              <div class="dp-table-row__badge" style="background:var(--color-primary-light);color:var(--color-primary);">PSY-204</div>
+              <div class="dp-table-row__due" style="color:var(--color-warning);font-weight:600;">Today</div>
+            </div>
+            <div class="dp-table-row">
+              <div class="dp-table-row__dot" style="background:var(--color-primary);"></div>
+              <div class="dp-table-row__name">Data Analysis Lab</div>
+              <div class="dp-table-row__badge" style="background:rgba(58,12,163,0.1);color:var(--color-secondary);">DS-101</div>
+              <div class="dp-table-row__due" style="color:var(--color-gray-500);">Wed</div>
+            </div>
+            <div class="dp-table-row">
+              <div class="dp-table-row__dot" style="background:var(--color-accent);"></div>
+              <div class="dp-table-row__name">Literature Review</div>
+              <div class="dp-table-row__badge" style="background:rgba(111,207,151,0.15);color:#3da86a;">ENGL-201</div>
+              <div class="dp-table-row__due" style="color:var(--color-gray-500);">Fri</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="features__header">
+      <span class="badge badge--outline" style="margin-bottom: var(--space-4); display: inline-flex; border-color: var(--color-primary); color: var(--color-primary);">Features</span>
+      <h2 class="features__heading">Everything you need to succeed</h2>
+      <p class="features__sub">Purpose-built tools that adapt to how you actually study, not how you think you should.</p>
+    </div>
+
+    <div class="features__grid">
+      <!-- Feature 1: Smart Planner -->
+      <div class="card feature-card">
+        <div class="feature-card__scene">
+          <svg viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="120" fill="#EBF3FC"/>
+            <!-- Calendar grid -->
+            <rect x="30" y="15" width="140" height="90" rx="8" fill="#fff" stroke="#4A90E2" stroke-width="1.2"/>
+            <rect x="30" y="15" width="140" height="22" rx="8" fill="#4A90E2" opacity="0.1"/>
+            <text x="100" y="30" text-anchor="middle" font-size="9" font-weight="700" fill="#4A90E2" font-family="Inter,sans-serif">WEEK 12</text>
+            <!-- Day columns -->
+            <text x="46" y="48" font-size="7" fill="#999" font-family="Inter,sans-serif">Mon</text>
+            <text x="72" y="48" font-size="7" fill="#999" font-family="Inter,sans-serif">Tue</text>
+            <text x="98" y="48" font-size="7" fill="#999" font-family="Inter,sans-serif">Wed</text>
+            <text x="124" y="48" font-size="7" fill="#999" font-family="Inter,sans-serif">Thu</text>
+            <text x="150" y="48" font-size="7" fill="#999" font-family="Inter,sans-serif">Fri</text>
+            <!-- Study blocks -->
+            <rect x="38" y="54" width="20" height="14" rx="3" fill="#4A90E2" opacity="0.7"/>
+            <rect x="38" y="72" width="20" height="8" rx="3" fill="#6FCF97" opacity="0.5"/>
+            <rect x="64" y="54" width="20" height="20" rx="3" fill="#3A0CA3" opacity="0.4"/>
+            <rect x="90" y="58" width="20" height="10" rx="3" fill="#4A90E2" opacity="0.5"/>
+            <rect x="90" y="72" width="20" height="14" rx="3" fill="#C0392B" opacity="0.4"/>
+            <rect x="116" y="54" width="20" height="16" rx="3" fill="#6FCF97" opacity="0.6"/>
+            <rect x="142" y="56" width="20" height="12" rx="3" fill="#4A90E2" opacity="0.6"/>
+            <rect x="142" y="72" width="20" height="10" rx="3" fill="#3A0CA3" opacity="0.3"/>
+            <!-- Sparkle -->
+            <circle cx="175" cy="20" r="6" fill="#4A90E2" opacity="0.1"/>
+            <path d="M175 15v10M170 20h10" stroke="#4A90E2" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="feature-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+        </div>
+        <h3 class="feature-card__title">Smart Planner</h3>
+        <p class="feature-card__desc">Auto-generates weekly study plans based on your syllabi, deadlines, and energy patterns. Adjusts when life happens.</p>
+      </div>
+
+      <!-- Feature 2: Deadline Tracker -->
+      <div class="card feature-card">
+        <div class="feature-card__scene">
+          <svg viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="120" fill="#F0FAF4"/>
+            <!-- Clock face -->
+            <circle cx="100" cy="55" r="36" fill="#fff" stroke="#6FCF97" stroke-width="1.5"/>
+            <circle cx="100" cy="55" r="2" fill="#6FCF97"/>
+            <!-- Hour markers -->
+            <line x1="100" y1="23" x2="100" y2="27" stroke="#ccc" stroke-width="1.2"/>
+            <line x1="100" y1="83" x2="100" y2="87" stroke="#ccc" stroke-width="1.2"/>
+            <line x1="68" y1="55" x2="72" y2="55" stroke="#ccc" stroke-width="1.2"/>
+            <line x1="128" y1="55" x2="132" y2="55" stroke="#ccc" stroke-width="1.2"/>
+            <!-- Clock hands -->
+            <line x1="100" y1="55" x2="100" y2="32" stroke="#333" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="100" y1="55" x2="118" y2="48" stroke="#6FCF97" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- Deadline items -->
+            <rect x="145" y="25" width="45" height="22" rx="5" fill="#fff" stroke="#E0E0E0" stroke-width="1"/>
+            <circle cx="154" cy="33" r="3" fill="#C0392B" opacity="0.8"/>
+            <rect x="160" y="30" width="22" height="3" rx="1.5" fill="#E0E0E0"/>
+            <text x="160" y="41" font-size="5" fill="#C0392B" font-family="Inter,sans-serif">Due today</text>
+
+            <rect x="145" y="52" width="45" height="22" rx="5" fill="#fff" stroke="#E0E0E0" stroke-width="1"/>
+            <circle cx="154" cy="60" r="3" fill="#4A90E2" opacity="0.6"/>
+            <rect x="160" y="57" width="18" height="3" rx="1.5" fill="#E0E0E0"/>
+            <text x="160" y="68" font-size="5" fill="#4A90E2" font-family="Inter,sans-serif">Wed</text>
+
+            <rect x="145" y="79" width="45" height="22" rx="5" fill="#fff" stroke="#E0E0E0" stroke-width="1"/>
+            <circle cx="154" cy="87" r="3" fill="#6FCF97" opacity="0.6"/>
+            <rect x="160" y="84" width="24" height="3" rx="1.5" fill="#E0E0E0"/>
+            <text x="160" y="95" font-size="5" fill="#6FCF97" font-family="Inter,sans-serif">Next Mon</text>
+          </svg>
+        </div>
+        <div class="feature-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12,6 12,12 16,14"/>
+          </svg>
+        </div>
+        <h3 class="feature-card__title">Deadline Tracker</h3>
+        <p class="feature-card__desc">Syncs with Canvas, Blackboard, and Google Classroom. Never miss a due date with smart reminders that escalate.</p>
+      </div>
+
+      <!-- Feature 3: Focus Sessions -->
+      <div class="card feature-card">
+        <div class="feature-card__scene">
+          <svg viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="120" fill="#F3EEFA"/>
+            <!-- Timer circle -->
+            <circle cx="80" cy="58" r="34" fill="#fff" stroke="#E0E0E0" stroke-width="2"/>
+            <circle cx="80" cy="58" r="34" fill="none" stroke="#3A0CA3" stroke-width="3" stroke-dasharray="170" stroke-dashoffset="50" stroke-linecap="round" transform="rotate(-90 80 58)"/>
+            <text x="80" y="55" text-anchor="middle" font-size="16" font-weight="700" fill="#3A0CA3" font-family="Inter,sans-serif">25</text>
+            <text x="80" y="66" text-anchor="middle" font-size="7" fill="#999" font-family="Inter,sans-serif">min left</text>
+            <!-- Focus metrics -->
+            <rect x="130" y="22" width="55" height="28" rx="6" fill="#fff" stroke="#E0E0E0" stroke-width="1"/>
+            <text x="157" y="35" text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">FOCUS</text>
+            <text x="157" y="45" text-anchor="middle" font-size="10" font-weight="700" fill="#3A0CA3" font-family="Inter,sans-serif">92%</text>
+
+            <rect x="130" y="56" width="55" height="28" rx="6" fill="#fff" stroke="#E0E0E0" stroke-width="1"/>
+            <text x="157" y="69" text-anchor="middle" font-size="6" fill="#999" font-family="Inter,sans-serif">STREAK</text>
+            <text x="157" y="79" text-anchor="middle" font-size="10" font-weight="700" fill="#6FCF97" font-family="Inter,sans-serif">5 days</text>
+
+            <!-- Pulse rings -->
+            <circle cx="80" cy="58" r="40" fill="none" stroke="#3A0CA3" stroke-width="0.5" opacity="0.2"/>
+            <circle cx="80" cy="58" r="46" fill="none" stroke="#3A0CA3" stroke-width="0.3" opacity="0.1"/>
+          </svg>
+        </div>
+        <div class="feature-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+        </div>
+        <h3 class="feature-card__title">Focus Sessions</h3>
+        <p class="feature-card__desc">Timed study blocks with distraction tracking. See which habits help you concentrate and which ones don't.</p>
+      </div>
+
+      <!-- Feature 4: Progress Insights -->
+      <div class="card feature-card">
+        <div class="feature-card__scene">
+          <svg viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="120" fill="#FDF4F3"/>
+            <!-- Chart area -->
+            <rect x="25" y="15" width="150" height="85" rx="8" fill="#fff" stroke="#E0E0E0" stroke-width="1"/>
+            <!-- Grid lines -->
+            <line x1="40" y1="35" x2="160" y2="35" stroke="#f0f0f0" stroke-width="0.5"/>
+            <line x1="40" y1="55" x2="160" y2="55" stroke="#f0f0f0" stroke-width="0.5"/>
+            <line x1="40" y1="75" x2="160" y2="75" stroke="#f0f0f0" stroke-width="0.5"/>
+            <!-- Y-axis labels -->
+            <text x="33" y="37" text-anchor="end" font-size="6" fill="#ccc" font-family="Inter,sans-serif">A</text>
+            <text x="33" y="57" text-anchor="end" font-size="6" fill="#ccc" font-family="Inter,sans-serif">B</text>
+            <text x="33" y="77" text-anchor="end" font-size="6" fill="#ccc" font-family="Inter,sans-serif">C</text>
+            <!-- Line chart - grade trend -->
+            <polyline points="45,68 65,60 85,55 105,48 125,42 145,35" fill="none" stroke="#C0392B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Data dots -->
+            <circle cx="45" cy="68" r="3" fill="#fff" stroke="#C0392B" stroke-width="1.5"/>
+            <circle cx="65" cy="60" r="3" fill="#fff" stroke="#C0392B" stroke-width="1.5"/>
+            <circle cx="85" cy="55" r="3" fill="#fff" stroke="#4A90E2" stroke-width="1.5"/>
+            <circle cx="105" cy="48" r="3" fill="#fff" stroke="#4A90E2" stroke-width="1.5"/>
+            <circle cx="125" cy="42" r="3" fill="#fff" stroke="#6FCF97" stroke-width="1.5"/>
+            <circle cx="145" cy="35" r="3" fill="#fff" stroke="#6FCF97" stroke-width="1.5"/>
+            <!-- Area fill -->
+            <polygon points="45,68 65,60 85,55 105,48 125,42 145,35 145,90 45,90" fill="url(#progressGrad)" opacity="0.15"/>
+            <defs>
+              <linearGradient id="progressGrad" x1="45" y1="35" x2="45" y2="90" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#6FCF97"/>
+                <stop offset="1" stop-color="#6FCF97" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <!-- Trend arrow -->
+            <text x="155" y="30" font-size="10" fill="#6FCF97">&#8599;</text>
+            <!-- X-axis labels -->
+            <text x="45" y="96" text-anchor="middle" font-size="6" fill="#ccc" font-family="Inter,sans-serif">W7</text>
+            <text x="85" y="96" text-anchor="middle" font-size="6" fill="#ccc" font-family="Inter,sans-serif">W9</text>
+            <text x="125" y="96" text-anchor="middle" font-size="6" fill="#ccc" font-family="Inter,sans-serif">W11</text>
+          </svg>
+        </div>
+        <div class="feature-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"/>
+            <line x1="12" y1="20" x2="12" y2="4"/>
+            <line x1="6" y1="20" x2="6" y2="14"/>
+          </svg>
+        </div>
+        <h3 class="feature-card__title">Progress Insights</h3>
+        <p class="feature-card__desc">Visual dashboards showing study time, grade trends, and workload balance across all your courses at a glance.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <h2 class="cta-section__heading">Ready to take control?</h2>
+    <p class="cta-section__sub">Join thousands of students already using MyPace to stay organized, hit deadlines, and study smarter.</p>
+    <a href="signup.html" class="btn btn--white-outline btn--large">Get Started Free</a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p>&copy; 2026 MyPace. Built for students, by students.</p>
+  </footer>
+
+</body>
+</html>

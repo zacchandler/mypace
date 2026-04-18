@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyPace — Onboarding Step 3</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .onboarding__heading {
+      font-size: var(--text-4xl);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      text-align: center;
+    }
+
+    .onboarding__subtext {
+      font-size: var(--text-base);
+      color: var(--color-gray-500);
+      text-align: center;
+      line-height: 1.6;
+      max-width: 520px;
+      margin: var(--space-4) auto var(--space-10);
+    }
+
+    /* Learning Style Cards Grid */
+    .style-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-5);
+      width: 100%;
+      margin-bottom: var(--space-8);
+    }
+
+    .style-card {
+      position: relative;
+      border: 1.5px solid var(--color-gray-200);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      background: var(--color-white);
+    }
+
+    .style-card:hover {
+      border-color: var(--color-gray-400);
+    }
+
+    .style-card--selected {
+      border: 2px solid var(--color-primary);
+    }
+
+    .style-card--selected:hover {
+      border-color: var(--color-primary);
+    }
+
+    /* Checkmark in top-right of selected card */
+    .style-card__check {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 24px;
+      height: 24px;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .style-card__icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-lg);
+      background: var(--color-gray-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-4);
+      font-size: 20px;
+    }
+
+    .style-card__title-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-2);
+    }
+
+    .style-card__title {
+      font-size: var(--text-base);
+      font-weight: 700;
+      color: var(--color-black);
+    }
+
+    /* ACTIVE label with dashed line */
+    .style-card__active-label {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .style-card__active-line {
+      width: 24px;
+      height: 0;
+      border-top: 1.5px dashed var(--color-primary);
+    }
+
+    .style-card__active-tag {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-primary);
+      background: var(--color-primary-light);
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+    }
+
+    .style-card__desc {
+      font-size: var(--text-sm);
+      color: var(--color-gray-500);
+      line-height: 1.55;
+    }
+
+    .quiz-link {
+      display: block;
+      text-align: center;
+      font-size: var(--text-sm);
+      color: var(--color-gray-500);
+      text-decoration: underline;
+      margin-bottom: var(--space-6);
+      transition: color 0.15s;
+    }
+
+    .quiz-link:hover {
+      color: var(--color-black);
+    }
+
+    .onboarding__system-state {
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--color-gray-400);
+      text-align: right;
+      letter-spacing: 0.02em;
+      line-height: 1.6;
+      padding: var(--space-4) var(--space-8);
+      max-width: 420px;
+      margin-left: auto;
+    }
+
+    @media (max-width: 540px) {
+      .style-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="onboarding">
+
+    <!-- Nav Bar -->
+    <nav class="nav" style="justify-content:center;">
+      <a href="index.html" class="nav__logo">MyPace</a>
+    </nav>
+
+    <!-- Onboarding Header: Back + Steps -->
+    <div class="onboarding__header">
+      <a href="onboarding-2.html" class="onboarding__back" aria-label="Go back">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11 4L6 9L11 14" stroke="#111111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <div class="steps">
+        <span class="steps__dot steps__dot--completed"></span>
+        <span class="steps__dot steps__dot--completed"></span>
+        <span class="steps__dot steps__dot--active"></span>
+        <span class="steps__dot"></span>
+        <span class="steps__dot"></span>
+        <span class="steps__dot"></span>
+        <span class="steps__dot"></span>
+        <span class="steps__dot"></span>
+        <span class="steps__label">Step 3 of 8</span>
+      </div>
+      <div style="width: 36px;"></div>
+    </div>
+
+    <!-- Main Body -->
+    <div class="onboarding__body">
+
+      <h1 class="onboarding__heading">Identify your learning style</h1>
+      <p class="onboarding__subtext">Tell us how you absorb information best. We'll tailor your course materials and schedule to match your natural rhythm.</p>
+
+      <!-- 2x2 Learning Style Cards -->
+      <div class="style-grid">
+
+        <!-- Card 1: Auditory (SELECTED) -->
+        <div class="style-card style-card--selected" data-style="auditory">
+          <span class="style-card__check">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 7L6 10L11 4" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <div class="style-card__icon" style="background: var(--color-primary-light); color: var(--color-primary);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 14h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H3V14z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M21 14h-2a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2V14z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M3 14V12a9 9 0 0 1 18 0v2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="style-card__title-row">
+            <span class="style-card__title">Auditory</span>
+            <div class="style-card__active-label">
+              <span class="style-card__active-line"></span>
+              <span class="style-card__active-tag">Active</span>
+            </div>
+          </div>
+          <p class="style-card__desc">You learn best through lectures, discussions, and listening to educational podcasts.</p>
+        </div>
+
+        <!-- Card 2: Visual -->
+        <div class="style-card" data-style="visual">
+          <div class="style-card__icon" style="background: rgba(58,12,163,0.1); color: var(--color-secondary);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.8"/>
+            </svg>
+          </div>
+          <div class="style-card__title-row">
+            <span class="style-card__title">Visual</span>
+          </div>
+          <p class="style-card__desc">You prefer diagrams, charts, and video demonstrations to grasp complex concepts.</p>
+        </div>
+
+        <!-- Card 3: Reading & Writing -->
+        <div class="style-card" data-style="reading-writing">
+          <div class="style-card__icon" style="background: rgba(111,207,151,0.15); color: var(--color-accent);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 4h5a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4V4z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M20 4h-5a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h6V4z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="style-card__title-row">
+            <span class="style-card__title">Reading & Writing</span>
+          </div>
+          <p class="style-card__desc">You excel when taking notes, reading textbooks, and summarizing written information.</p>
+        </div>
+
+        <!-- Card 4: Hands-on -->
+        <div class="style-card" data-style="hands-on">
+          <div class="style-card__icon" style="background: var(--color-warning-light); color: var(--color-warning);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 11V6.83a3 3 0 0 0-.88-2.12L14 1.59a2 2 0 0 0-2.83 0L8.88 3.88A3 3 0 0 0 8 6v5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 11a4 4 0 0 0-4 4v1a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4v-1a4 4 0 0 0-4-4H8z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <line x1="12" y1="11" x2="12" y2="6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="style-card__title-row">
+            <span class="style-card__title">Hands-on</span>
+          </div>
+          <p class="style-card__desc">You retain knowledge through practice, physical movement, and tactile experience.</p>
+        </div>
+
+      </div>
+
+      <!-- Quiz Link -->
+      <a href="javascript:void(0)" class="quiz-link">Not sure? Take our 2-minute quiz</a>
+
+      <!-- Next Button -->
+      <a href="onboarding-4.html" class="btn btn--primary btn--large btn--full">Next</a>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Card selection interaction
+    document.querySelectorAll('.style-card').forEach(card => {
+      card.addEventListener('click', () => {
+        // Remove selected state from all cards
+        document.querySelectorAll('.style-card').forEach(c => {
+          c.classList.remove('style-card--selected');
+          const check = c.querySelector('.style-card__check');
+          if (check) check.remove();
+          const activeLabel = c.querySelector('.style-card__active-label');
+          if (activeLabel) activeLabel.remove();
+        });
+
+        // Add selected state to clicked card
+        card.classList.add('style-card--selected');
+
+        // Add checkmark
+        const checkEl = document.createElement('span');
+        checkEl.className = 'style-card__check';
+        checkEl.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 7L6 10L11 4" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        card.appendChild(checkEl);
+
+        // Add ACTIVE label to title row
+        const titleRow = card.querySelector('.style-card__title-row');
+        const activeLabel = document.createElement('div');
+        activeLabel.className = 'style-card__active-label';
+        activeLabel.innerHTML = '<span class="style-card__active-line"></span><span class="style-card__active-tag">Active</span>';
+        titleRow.appendChild(activeLabel);
+      });
+    });
+  </script>
+</body>
+</html>

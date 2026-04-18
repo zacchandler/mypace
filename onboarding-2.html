@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyPace — Onboarding Step 2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .onboarding__annotation {
+      font-size: var(--text-xs);
+      color: var(--color-gray-400);
+      max-width: 200px;
+      line-height: 1.5;
+      letter-spacing: 0.02em;
+    }
+
+    .onboarding__heading-row {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-8);
+      width: 100%;
+      margin-bottom: var(--space-8);
+    }
+
+    .onboarding__heading {
+      font-size: var(--text-4xl);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      flex: 1;
+    }
+
+    .feature-row__title {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--color-black);
+      margin-bottom: 4px;
+    }
+
+    .features-list {
+      width: 100%;
+      margin-bottom: var(--space-8);
+    }
+
+    .onboarding__terms {
+      font-size: var(--text-xs);
+      color: var(--color-gray-500);
+      margin-top: var(--space-4);
+    }
+
+    .onboarding__terms a {
+      text-decoration: underline;
+      color: var(--color-gray-500);
+      transition: color 0.15s;
+    }
+
+    .onboarding__terms a:hover {
+      color: var(--color-black);
+    }
+  </style>
+</head>
+<body>
+  <div class="onboarding">
+
+    <!-- Nav Bar -->
+    <nav class="nav" style="justify-content:center;">
+      <a href="index.html" class="nav__logo">MyPace</a>
+    </nav>
+
+    <!-- Onboarding Header: Back + Steps -->
+    <div class="onboarding__header">
+      <a href="onboarding-1.html" class="onboarding__back" aria-label="Go back">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11 4L6 9L11 14" stroke="#111111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <div class="steps">
+        <span class="steps__dot steps__dot--completed"></span>
+        <span class="steps__dot steps__dot--active"></span>
+        <span class="steps__dot"></span>
+        <span class="steps__dot"></span>
+        <span class="steps__dot"></span>
+        <span class="steps__dot"></span>
+        <span class="steps__dot"></span>
+        <span class="steps__dot"></span>
+        <span class="steps__label">Step 2 of 8</span>
+      </div>
+      <div style="width: 36px;"></div>
+    </div>
+
+    <!-- Main Body -->
+    <div class="onboarding__body">
+
+      <!-- Heading -->
+      <div class="onboarding__heading-row">
+        <h1 class="onboarding__heading">Built for your pace, driven by your goals.</h1>
+      </div>
+
+      <!-- Feature Rows -->
+      <div class="features-list">
+
+        <!-- Feature 1: Smarter study recommendations -->
+        <div class="feature-row">
+          <div class="feature-row__icon" style="background: var(--color-primary-light); color: var(--color-primary);">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="10" cy="10" r="6" stroke="currentColor" stroke-width="1.6"/>
+              <line x1="10" y1="4" x2="10" y2="1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              <line x1="10" y1="19" x2="10" y2="16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              <line x1="4" y1="10" x2="1" y2="10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              <line x1="19" y1="10" x2="16" y2="10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="feature-row__content">
+            <p class="feature-row__title">Smarter study recommendations.</p>
+            <p style="font-size:var(--text-sm); color:var(--color-gray-500); line-height:1.5; margin-top:2px;">Our AI analyzes your habits and performance to suggest the most effective study sessions tailored to you.</p>
+          </div>
+        </div>
+
+        <!-- Feature 2: Personalized reminders -->
+        <div class="feature-row">
+          <div class="feature-row__icon" style="background: rgba(58,12,163,0.1); color: var(--color-secondary);">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 2C6.68 2 4 4.68 4 8V12L2.5 14.5H17.5L16 12V8C16 4.68 13.32 2 10 2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+              <path d="M8 15.5C8 16.6 8.9 17.5 10 17.5C11.1 17.5 12 16.6 12 15.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="feature-row__content">
+            <p class="feature-row__title">Personalized reminders.</p>
+            <p style="font-size:var(--text-sm); color:var(--color-gray-500); line-height:1.5; margin-top:2px;">Get nudges at the right moment — before deadlines, during peak focus hours, and when it's time to take a break.</p>
+          </div>
+        </div>
+
+        <!-- Feature 3: Less overwhelm -->
+        <div class="feature-row">
+          <div class="feature-row__icon" style="background: rgba(111,207,151,0.15); color: var(--color-accent);">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.6"/>
+              <circle cx="10" cy="10" r="4.5" stroke="currentColor" stroke-width="1.6"/>
+              <circle cx="10" cy="10" r="1.5" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="feature-row__content">
+            <p class="feature-row__title">Less overwhelm.</p>
+            <p style="font-size:var(--text-sm); color:var(--color-gray-500); line-height:1.5; margin-top:2px;">We break your workload into manageable chunks so you can stay on track without burning out.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Continue Button -->
+      <a href="onboarding-3.html" class="btn btn--primary btn--large btn--full">Continue</a>
+
+      <!-- Terms -->
+      <p class="onboarding__terms">By continuing, you agree to our <a href="javascript:void(0)">Terms of Service</a></p>
+
+    </div>
+
+  </div>
+</body>
+</html>

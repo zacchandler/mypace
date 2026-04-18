@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyPace — Connect Tools & Import Setup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .onboarding__content {
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .import-banner {
+      background: var(--color-primary-light);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      margin-bottom: var(--space-4);
+    }
+
+    .import-banner__title {
+      font-size: var(--text-lg);
+      font-weight: 700;
+      margin-bottom: var(--space-4);
+    }
+
+    .import-banner__sub {
+      font-size: var(--text-sm);
+      color: var(--color-gray-500);
+      margin-top: var(--space-3);
+    }
+
+    .privacy-note {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-6);
+      padding: 0 var(--space-1);
+    }
+
+    .privacy-note svg {
+      flex-shrink: 0;
+      color: var(--color-accent);
+    }
+
+    .privacy-note span {
+      font-size: var(--text-xs);
+      color: var(--color-gray-500);
+    }
+
+    .integration-list {
+      margin-bottom: var(--space-8);
+    }
+
+    .skip-link {
+      display: block;
+      text-align: center;
+      margin-top: var(--space-4);
+      font-size: var(--text-sm);
+      color: var(--color-gray-500);
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+
+    .skip-link:hover {
+      color: var(--color-black);
+    }
+  </style>
+</head>
+<body>
+  <div class="onboarding">
+    <!-- Nav bar -->
+    <nav class="nav" style="justify-content:center;">
+      <a href="index.html" class="nav__logo">MyPace</a>
+    </nav>
+
+    <!-- Onboarding Header: Back + Steps -->
+    <div class="onboarding__header">
+      <a href="onboarding-5.html" class="onboarding__back" aria-label="Go back">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11 4L6 9L11 14" stroke="#111111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <div class="steps">
+        <span class="steps__dot steps__dot--completed"></span>
+        <span class="steps__dot steps__dot--completed"></span>
+        <span class="steps__dot steps__dot--completed"></span>
+        <span class="steps__dot steps__dot--completed"></span>
+        <span class="steps__dot steps__dot--completed"></span>
+        <span class="steps__dot steps__dot--active"></span>
+        <span class="steps__dot"></span>
+        <span class="steps__dot"></span>
+        <span class="steps__label">Step 6 of 8</span>
+      </div>
+      <div style="width: 36px;"></div>
+    </div>
+
+    <!-- Body -->
+    <main class="onboarding__body">
+
+      <!-- Main content area -->
+      <div class="onboarding__content">
+        <!-- Import banner card -->
+        <div class="import-banner">
+          <div class="import-banner__title">Import your current setup in seconds</div>
+          <p class="import-banner__sub">No need to start over — we'll bring everything in</p>
+        </div>
+
+        <!-- Privacy note -->
+        <div class="privacy-note">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+          <span>Your data stays private and secure</span>
+        </div>
+
+        <!-- Integration list -->
+        <div class="integration-list">
+          <!-- Google Calendar -->
+          <div class="integration-row">
+            <div class="integration-row__info">
+              <div class="integration-row__icon" style="background: var(--color-primary-light); color: var(--color-primary);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+              </div>
+              <div class="integration-row__text">
+                <h4>Google Calendar</h4>
+                <p>Sync classes, exams, and events automatically</p>
+              </div>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" checked>
+              <span class="toggle__slider"></span>
+            </label>
+          </div>
+
+          <!-- Apple Calendar -->
+          <div class="integration-row">
+            <div class="integration-row__info">
+              <div class="integration-row__icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+              </div>
+              <div class="integration-row__text">
+                <h4>Apple Calendar</h4>
+                <p>Connect your iCloud schedule</p>
+              </div>
+            </div>
+            <label class="toggle">
+              <input type="checkbox">
+              <span class="toggle__slider"></span>
+            </label>
+          </div>
+
+          <!-- Reminders & Tasks -->
+          <div class="integration-row">
+            <div class="integration-row__info">
+              <div class="integration-row__icon" style="background: rgba(111,207,151,0.15); color: var(--color-accent);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 11 12 14 22 4"/>
+                  <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                </svg>
+              </div>
+              <div class="integration-row__text">
+                <h4>Reminders & Tasks</h4>
+                <p>Bring in existing checklists and to-dos</p>
+              </div>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" checked>
+              <span class="toggle__slider"></span>
+            </label>
+          </div>
+
+          <!-- Notes (Apple Notes / Notion) -->
+          <div class="integration-row">
+            <div class="integration-row__info">
+              <div class="integration-row__icon" style="background: rgba(58,12,163,0.1); color: var(--color-secondary);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                  <line x1="16" y1="13" x2="8" y2="13"/>
+                  <line x1="16" y1="17" x2="8" y2="17"/>
+                  <polyline points="10 9 9 9 8 9"/>
+                </svg>
+              </div>
+              <div class="integration-row__text">
+                <h4>Notes (Apple Notes / Notion)</h4>
+                <p>Reference and link your course materials</p>
+              </div>
+            </div>
+            <label class="toggle">
+              <input type="checkbox">
+              <span class="toggle__slider"></span>
+            </label>
+          </div>
+
+          <!-- Flashcards (Quizlet) -->
+          <div class="integration-row">
+            <div class="integration-row__info">
+              <div class="integration-row__icon" style="background: var(--color-primary-light); color: var(--color-primary);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2"/>
+                  <line x1="2" y1="10" x2="22" y2="10"/>
+                </svg>
+              </div>
+              <div class="integration-row__text">
+                <h4>Flashcards (Quizlet)</h4>
+                <p>Import your study sets for active recall</p>
+              </div>
+            </div>
+            <label class="toggle">
+              <input type="checkbox">
+              <span class="toggle__slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Connect Tools button -->
+        <a href="onboarding-7.html" class="btn btn--primary btn--large btn--full">Connect Tools</a>
+
+        <!-- Skip link -->
+        <a href="onboarding-7.html" class="skip-link">Skip for now — I'll set this up later</a>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

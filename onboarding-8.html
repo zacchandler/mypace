@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>You're All Set — MyPace Onboarding</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .onboarding__gradient-band {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 320px;
+      background: linear-gradient(180deg, rgba(111,207,151,0.12) 0%, rgba(111,207,151,0.03) 50%, var(--color-white) 100%);
+      z-index: -1;
+    }
+
+    .onboarding__body--narrow {
+      max-width: 580px;
+    }
+
+    /* ── Celebration icon with bounce entrance + pulse ── */
+    .celebration-icon {
+      width: 96px;
+      height: 96px;
+      border-radius: var(--radius-full);
+      background: rgba(111, 207, 151, 0.12);
+      color: var(--color-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-8);
+      animation: icon-bounce-in 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+                 pulse-glow 2.4s ease-in-out 0.7s infinite;
+      transform: scale(0);
+    }
+
+    .celebration-icon svg {
+      width: 48px;
+      height: 48px;
+    }
+
+    @keyframes icon-bounce-in {
+      0%   { transform: scale(0); }
+      50%  { transform: scale(1.15); }
+      70%  { transform: scale(0.92); }
+      85%  { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(111, 207, 151, 0.35),
+                    0 0 12px 2px rgba(111, 207, 151, 0.10);
+      }
+      50% {
+        box-shadow: 0 0 0 20px rgba(111, 207, 151, 0),
+                    0 0 24px 6px rgba(111, 207, 151, 0.06);
+      }
+    }
+
+    /* ── Entrance animations for text + CTA ── */
+    .anim-fade-up {
+      opacity: 0;
+      transform: translateY(14px);
+      animation: fade-up 0.5s ease-out forwards;
+    }
+
+    .anim-fade-up--heading  { animation-delay: 0.4s; }
+    .anim-fade-up--subtext  { animation-delay: 0.6s; }
+    .anim-fade-up--cta      { animation-delay: 0.8s; }
+    .anim-fade-up--link     { animation-delay: 0.95s; }
+
+    @keyframes fade-up {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ── Confetti system — purely decorative ── */
+    .confetti {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 380px;
+      overflow: hidden;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .confetti__piece {
+      position: absolute;
+      top: -12px;
+      opacity: 0;
+    }
+
+    /* Shapes: circle, square, rectangle */
+    .confetti__piece--circle    { border-radius: 50%; }
+    .confetti__piece--square    { border-radius: 2px; }
+    .confetti__piece--rect      { border-radius: 1px; }
+
+    /* Brand colors */
+    .confetti__piece--blue   { background: #4A90E2; }
+    .confetti__piece--purple { background: #3A0CA3; }
+    .confetti__piece--green  { background: #6FCF97; }
+    .confetti__piece--gold   { background: #FFBD2E; }
+
+    /* Fall animations — 6 distinct paths with lateral drift + sway */
+    @keyframes fall-1 {
+      0%   { opacity: 0; transform: translateY(0) translateX(0) rotate(0deg); }
+      8%   { opacity: 0.9; }
+      25%  { transform: translateY(80px)  translateX(18px) rotate(120deg); }
+      50%  { transform: translateY(170px) translateX(-10px) rotate(240deg); }
+      75%  { transform: translateY(270px) translateX(14px) rotate(400deg); }
+      92%  { opacity: 0.6; }
+      100% { opacity: 0; transform: translateY(360px) translateX(-6px) rotate(520deg); }
+    }
+    @keyframes fall-2 {
+      0%   { opacity: 0; transform: translateY(0) translateX(0) rotate(0deg); }
+      10%  { opacity: 0.85; }
+      30%  { transform: translateY(100px) translateX(-22px) rotate(-90deg); }
+      60%  { transform: translateY(210px) translateX(12px) rotate(-220deg); }
+      90%  { opacity: 0.5; }
+      100% { opacity: 0; transform: translateY(350px) translateX(-16px) rotate(-380deg); }
+    }
+    @keyframes fall-3 {
+      0%   { opacity: 0; transform: translateY(0) translateX(0) rotate(30deg); }
+      12%  { opacity: 0.9; }
+      35%  { transform: translateY(90px) translateX(28px) rotate(180deg); }
+      65%  { transform: translateY(200px) translateX(6px) rotate(310deg); }
+      88%  { opacity: 0.55; }
+      100% { opacity: 0; transform: translateY(340px) translateX(20px) rotate(480deg); }
+    }
+    @keyframes fall-4 {
+      0%   { opacity: 0; transform: translateY(0) translateX(0) rotate(-20deg); }
+      9%   { opacity: 0.8; }
+      40%  { transform: translateY(120px) translateX(-30px) rotate(150deg); }
+      70%  { transform: translateY(240px) translateX(-8px) rotate(290deg); }
+      100% { opacity: 0; transform: translateY(370px) translateX(-24px) rotate(440deg); }
+    }
+    @keyframes fall-5 {
+      0%   { opacity: 0; transform: translateY(0) translateX(0) rotate(10deg); }
+      11%  { opacity: 0.85; }
+      20%  { transform: translateY(60px) translateX(14px) rotate(100deg); }
+      55%  { transform: translateY(190px) translateX(-18px) rotate(260deg); }
+      85%  { opacity: 0.45; }
+      100% { opacity: 0; transform: translateY(355px) translateX(8px) rotate(500deg); }
+    }
+    @keyframes fall-6 {
+      0%   { opacity: 0; transform: translateY(0) translateX(0) rotate(-40deg); }
+      10%  { opacity: 0.9; }
+      45%  { transform: translateY(150px) translateX(24px) rotate(140deg); }
+      75%  { transform: translateY(260px) translateX(-14px) rotate(320deg); }
+      100% { opacity: 0; transform: translateY(365px) translateX(10px) rotate(540deg); }
+    }
+
+    /* ── Individual confetti pieces (25 total) ── */
+
+    /* Piece  1 — blue circle, small */
+    .confetti__piece:nth-child(1) {
+      left: 5%; width: 6px; height: 6px;
+      animation: fall-1 3.2s ease-in-out 0.05s forwards;
+    }
+    /* Piece  2 — purple square, medium */
+    .confetti__piece:nth-child(2) {
+      left: 11%; width: 8px; height: 8px;
+      animation: fall-3 3.6s ease-in-out 0.25s forwards;
+    }
+    /* Piece  3 — green rect, small */
+    .confetti__piece:nth-child(3) {
+      left: 17%; width: 4px; height: 10px;
+      animation: fall-2 2.9s ease-in-out 0.10s forwards;
+    }
+    /* Piece  4 — gold circle, large */
+    .confetti__piece:nth-child(4) {
+      left: 22%; width: 9px; height: 9px;
+      animation: fall-5 3.8s ease-in-out 0.40s forwards;
+    }
+    /* Piece  5 — blue square, small */
+    .confetti__piece:nth-child(5) {
+      left: 27%; width: 5px; height: 5px;
+      animation: fall-4 3.0s ease-in-out 0.00s forwards;
+    }
+    /* Piece  6 — green circle, medium */
+    .confetti__piece:nth-child(6) {
+      left: 32%; width: 7px; height: 7px;
+      animation: fall-6 3.4s ease-in-out 0.55s forwards;
+    }
+    /* Piece  7 — purple rect, medium */
+    .confetti__piece:nth-child(7) {
+      left: 37%; width: 5px; height: 12px;
+      animation: fall-1 3.5s ease-in-out 0.30s forwards;
+    }
+    /* Piece  8 — gold square, small */
+    .confetti__piece:nth-child(8) {
+      left: 42%; width: 6px; height: 6px;
+      animation: fall-2 2.8s ease-in-out 0.15s forwards;
+    }
+    /* Piece  9 — blue rect, large */
+    .confetti__piece:nth-child(9) {
+      left: 47%; width: 6px; height: 14px;
+      animation: fall-3 3.7s ease-in-out 0.45s forwards;
+    }
+    /* Piece 10 — green square, small */
+    .confetti__piece:nth-child(10) {
+      left: 52%; width: 5px; height: 5px;
+      animation: fall-5 3.1s ease-in-out 0.08s forwards;
+    }
+    /* Piece 11 — purple circle, large */
+    .confetti__piece:nth-child(11) {
+      left: 57%; width: 10px; height: 10px;
+      animation: fall-4 3.9s ease-in-out 0.60s forwards;
+    }
+    /* Piece 12 — gold rect, small */
+    .confetti__piece:nth-child(12) {
+      left: 62%; width: 4px; height: 9px;
+      animation: fall-6 3.0s ease-in-out 0.20s forwards;
+    }
+    /* Piece 13 — blue circle, medium */
+    .confetti__piece:nth-child(13) {
+      left: 67%; width: 7px; height: 7px;
+      animation: fall-1 3.3s ease-in-out 0.35s forwards;
+    }
+    /* Piece 14 — green rect, medium */
+    .confetti__piece:nth-child(14) {
+      left: 72%; width: 5px; height: 11px;
+      animation: fall-2 3.6s ease-in-out 0.50s forwards;
+    }
+    /* Piece 15 — purple square, small */
+    .confetti__piece:nth-child(15) {
+      left: 77%; width: 6px; height: 6px;
+      animation: fall-3 2.9s ease-in-out 0.12s forwards;
+    }
+    /* Piece 16 — gold circle, medium */
+    .confetti__piece:nth-child(16) {
+      left: 82%; width: 8px; height: 8px;
+      animation: fall-5 3.4s ease-in-out 0.42s forwards;
+    }
+    /* Piece 17 — blue square, large */
+    .confetti__piece:nth-child(17) {
+      left: 87%; width: 9px; height: 9px;
+      animation: fall-4 3.7s ease-in-out 0.28s forwards;
+    }
+    /* Piece 18 — green circle, small */
+    .confetti__piece:nth-child(18) {
+      left: 92%; width: 5px; height: 5px;
+      animation: fall-6 3.1s ease-in-out 0.18s forwards;
+    }
+    /* Piece 19 — purple rect, large */
+    .confetti__piece:nth-child(19) {
+      left: 9%; width: 6px; height: 14px;
+      animation: fall-2 3.8s ease-in-out 0.65s forwards;
+    }
+    /* Piece 20 — gold square, small */
+    .confetti__piece:nth-child(20) {
+      left: 25%; width: 5px; height: 5px;
+      animation: fall-4 2.8s ease-in-out 0.22s forwards;
+    }
+    /* Piece 21 — blue circle, large */
+    .confetti__piece:nth-child(21) {
+      left: 40%; width: 10px; height: 10px;
+      animation: fall-6 3.5s ease-in-out 0.48s forwards;
+    }
+    /* Piece 22 — green square, medium */
+    .confetti__piece:nth-child(22) {
+      left: 55%; width: 7px; height: 7px;
+      animation: fall-1 3.2s ease-in-out 0.32s forwards;
+    }
+    /* Piece 23 — purple circle, small */
+    .confetti__piece:nth-child(23) {
+      left: 70%; width: 6px; height: 6px;
+      animation: fall-3 3.0s ease-in-out 0.02s forwards;
+    }
+    /* Piece 24 — gold rect, medium */
+    .confetti__piece:nth-child(24) {
+      left: 85%; width: 5px; height: 11px;
+      animation: fall-5 3.6s ease-in-out 0.52s forwards;
+    }
+    /* Piece 25 — blue rect, small */
+    .confetti__piece:nth-child(25) {
+      left: 15%; width: 4px; height: 8px;
+      animation: fall-2 3.3s ease-in-out 0.38s forwards;
+    }
+
+    /* Secondary link styling */
+    .secondary-link {
+      display: inline-block;
+      margin-top: var(--space-4);
+      font-size: var(--text-sm);
+      color: var(--color-gray-500);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .secondary-link:hover {
+      color: var(--color-primary);
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="onboarding">
+    <div class="onboarding__gradient-band"></div>
+
+    <!-- Confetti animation — 25 pieces, mixed shapes + colors -->
+    <div class="confetti">
+      <div class="confetti__piece confetti__piece--circle confetti__piece--blue"></div>
+      <div class="confetti__piece confetti__piece--square confetti__piece--purple"></div>
+      <div class="confetti__piece confetti__piece--rect   confetti__piece--green"></div>
+      <div class="confetti__piece confetti__piece--circle confetti__piece--gold"></div>
+      <div class="confetti__piece confetti__piece--square confetti__piece--blue"></div>
+      <div class="confetti__piece confetti__piece--circle confetti__piece--green"></div>
+      <div class="confetti__piece confetti__piece--rect   confetti__piece--purple"></div>
+      <div class="confetti__piece confetti__piece--square confetti__piece--gold"></div>
+      <div class="confetti__piece confetti__piece--rect   confetti__piece--blue"></div>
+      <div class="confetti__piece confetti__piece--square confetti__piece--green"></div>
+      <div class="confetti__piece confetti__piece--circle confetti__piece--purple"></div>
+      <div class="confetti__piece confetti__piece--rect   confetti__piece--gold"></div>
+      <div class="confetti__piece confetti__piece--circle confetti__piece--blue"></div>
+      <div class="confetti__piece confetti__piece--rect   confetti__piece--green"></div>
+      <div class="confetti__piece confetti__piece--square confetti__piece--purple"></div>
+      <div class="confetti__piece confetti__piece--circle confetti__piece--gold"></div>
+      <div class="confetti__piece confetti__piece--square confetti__piece--blue"></div>
+      <div class="confetti__piece confetti__piece--circle confetti__piece--green"></div>
+      <div class="confetti__piece confetti__piece--rect   confetti__piece--purple"></div>
+      <div class="confetti__piece confetti__piece--square confetti__piece--gold"></div>
+      <div class="confetti__piece confetti__piece--circle confetti__piece--blue"></div>
+      <div class="confetti__piece confetti__piece--square confetti__piece--green"></div>
+      <div class="confetti__piece confetti__piece--circle confetti__piece--purple"></div>
+      <div class="confetti__piece confetti__piece--rect   confetti__piece--gold"></div>
+      <div class="confetti__piece confetti__piece--rect   confetti__piece--blue"></div>
+    </div>
+
+    <!-- Nav bar -->
+    <nav class="nav" style="justify-content:center;">
+      <a href="index.html" class="nav__logo">MyPace</a>
+    </nav>
+
+    <!-- Step indicator -->
+    <div class="onboarding__header" style="justify-content:center;">
+      <div class="steps">
+        <span class="steps__dot steps__dot--completed"></span>
+        <span class="steps__dot steps__dot--completed"></span>
+        <span class="steps__dot steps__dot--completed"></span>
+        <span class="steps__dot steps__dot--completed"></span>
+        <span class="steps__dot steps__dot--completed"></span>
+        <span class="steps__dot steps__dot--completed"></span>
+        <span class="steps__dot steps__dot--completed"></span>
+        <span class="steps__dot steps__dot--completed"></span>
+        <span class="steps__label">Complete!</span>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <main class="onboarding__body onboarding__body--narrow">
+
+      <!-- Celebration icon with pulse -->
+      <div class="celebration-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+      </div>
+
+      <!-- Heading -->
+      <h1 class="text-3xl font-bold text-center anim-fade-up anim-fade-up--heading" style="line-height:1.2;">
+        You're all set!
+      </h1>
+
+      <!-- Subtext -->
+      <p class="text-gray text-center mt-4 mb-8 anim-fade-up anim-fade-up--subtext">
+        Your personalized study plan is ready. Let's make this semester your best one yet.
+      </p>
+
+      <!-- Primary CTA -->
+      <a href="dashboard.html" class="btn btn--primary btn--large btn--full uppercase anim-fade-up anim-fade-up--cta">Go to Dashboard</a>
+
+      <!-- Secondary link -->
+      <div class="text-center anim-fade-up anim-fade-up--link">
+        <a href="learning-center.html" class="secondary-link">Explore Learning Center</a>
+      </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="onboarding__footer">
+      <p class="text-xs text-gray">&copy; 2024 MyPace Academic Systems</p>
+    </footer>
+
+  </div>
+</body>
+</html>
