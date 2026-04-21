@@ -148,5 +148,33 @@
     </main>
 
   </div>
+  <script>
+    // Multi-select chips
+    document.querySelectorAll('.chips-wrap .chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const isActive = chip.classList.contains('chip--active');
+        if (isActive) {
+          chip.classList.remove('chip--active');
+          const dot = chip.querySelector('.chip__dot');
+          if (dot) dot.remove();
+        } else {
+          chip.classList.add('chip--active');
+          const dot = document.createElement('span');
+          dot.className = 'chip__dot';
+          chip.prepend(dot);
+        }
+      });
+    });
+
+    // Single-select toggle groups
+    document.querySelectorAll('.toggle-group').forEach(group => {
+      group.querySelectorAll('.toggle-group__item').forEach(item => {
+        item.addEventListener('click', () => {
+          group.querySelectorAll('.toggle-group__item').forEach(i => i.classList.remove('toggle-group__item--active'));
+          item.classList.add('toggle-group__item--active');
+        });
+      });
+    });
+  </script>
 </body>
 </html>
