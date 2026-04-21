@@ -57,10 +57,10 @@
     .section-header__title {
       font-family: var(--font-heading);
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: var(--color-gray-500);
+      color: var(--color-gray-800);
       padding-left: var(--space-3);
       border-left: 3px solid var(--color-primary);
     }
@@ -452,12 +452,45 @@
       </main>
     </div>
   </div>
+  <!-- Toast -->
+  <div id="toast" style="position:fixed;bottom:24px;right:24px;background:var(--color-black);color:#fff;padding:12px 20px;border-radius:8px;font-size:14px;font-weight:500;opacity:0;pointer-events:none;transition:opacity 0.2s;z-index:999;"></div>
+
   <script>
+    // Close avatar dropdown on outside click
     document.addEventListener('click', function(e) {
       var dd = document.getElementById('avatarDropdown');
-      if (dd && !dd.contains(e.target)) {
-        dd.classList.remove('avatar-dropdown--open');
-      }
+      if (dd && !dd.contains(e.target)) dd.classList.remove('avatar-dropdown--open');
+    });
+
+    // Toast helper
+    function showToast(msg) {
+      var t = document.getElementById('toast');
+      t.textContent = msg;
+      t.style.opacity = '1';
+      clearTimeout(t._hide);
+      t._hide = setTimeout(function() { t.style.opacity = '0'; }, 2500);
+    }
+
+    // Sync Calendar button
+    document.querySelector('.btn--ghost').addEventListener('click', function() {
+      showToast('Calendar synced!');
+    });
+
+    // Add New Task button
+    document.querySelector('.btn--primary').addEventListener('click', function() {
+      var name = prompt('Task name:');
+      if (name && name.trim()) showToast('Task "' + name.trim() + '" added!');
+    });
+
+    // Task checkboxes
+    document.querySelectorAll('.checkbox__box').forEach(function(box) {
+      box.addEventListener('click', function() {
+        var checked = this.getAttribute('aria-checked') === 'true';
+        this.setAttribute('aria-checked', checked ? 'false' : 'true');
+        this.classList.toggle('checkbox__box--checked', !checked);
+        var title = this.closest('tr').querySelector('.task-detail__title');
+        if (title) title.style.textDecoration = checked ? '' : 'line-through';
+      });
     });
   </script>
 </body>
