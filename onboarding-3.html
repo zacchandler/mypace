@@ -192,7 +192,7 @@
     <div class="onboarding__body">
 
       <h1 class="onboarding__heading">Identify your learning style</h1>
-      <p class="onboarding__subtext">Tell us how you absorb information best. We'll tailor your course materials and schedule to match your natural rhythm.</p>
+      <p class="onboarding__subtext">Tell us how you absorb information best. Select all that apply — we'll tailor your course materials and schedule to match your natural rhythm.</p>
 
       <!-- 2x2 Learning Style Cards -->
       <div class="style-grid">
@@ -277,33 +277,33 @@
   </div>
 
   <script>
-    // Card selection interaction
+    // Card selection — toggle multi-select
     document.querySelectorAll('.style-card').forEach(card => {
       card.addEventListener('click', () => {
-        // Remove selected state from all cards
-        document.querySelectorAll('.style-card').forEach(c => {
-          c.classList.remove('style-card--selected');
-          const check = c.querySelector('.style-card__check');
+        const isSelected = card.classList.contains('style-card--selected');
+
+        if (isSelected) {
+          // Deselect
+          card.classList.remove('style-card--selected');
+          const check = card.querySelector('.style-card__check');
           if (check) check.remove();
-          const activeLabel = c.querySelector('.style-card__active-label');
+          const activeLabel = card.querySelector('.style-card__active-label');
           if (activeLabel) activeLabel.remove();
-        });
+        } else {
+          // Select
+          card.classList.add('style-card--selected');
 
-        // Add selected state to clicked card
-        card.classList.add('style-card--selected');
+          const checkEl = document.createElement('span');
+          checkEl.className = 'style-card__check';
+          checkEl.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 7L6 10L11 4" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+          card.appendChild(checkEl);
 
-        // Add checkmark
-        const checkEl = document.createElement('span');
-        checkEl.className = 'style-card__check';
-        checkEl.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 7L6 10L11 4" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-        card.appendChild(checkEl);
-
-        // Add ACTIVE label to title row
-        const titleRow = card.querySelector('.style-card__title-row');
-        const activeLabel = document.createElement('div');
-        activeLabel.className = 'style-card__active-label';
-        activeLabel.innerHTML = '<span class="style-card__active-line"></span><span class="style-card__active-tag">Active</span>';
-        titleRow.appendChild(activeLabel);
+          const titleRow = card.querySelector('.style-card__title-row');
+          const activeLabel = document.createElement('div');
+          activeLabel.className = 'style-card__active-label';
+          activeLabel.innerHTML = '<span class="style-card__active-line"></span><span class="style-card__active-tag">Active</span>';
+          titleRow.appendChild(activeLabel);
+        }
       });
     });
   </script>
